@@ -1,491 +1,769 @@
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-nav,
-section,
-summary {
-  display: block;
-}
-audio,
-canvas,
-video {
-  display: inline-block;
-}
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
-[hidden] {
-  display: none;
-}
-html {
-  font-family: sans-serif;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-}
-body {
-  margin: 0;
-}
-a:focus {
-  outline: thin dotted;
-}
-a:active,
-a:hover {
-  outline: 0;
-}
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-b,
-strong {
-  font-weight: bold;
-}
-dfn {
-  font-style: italic;
-}
-hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 0;
-}
-mark {
-  background: #ff0;
-  color: #000;
-}
-code,
-kbd,
-pre,
-samp {
-  font-family: monospace, serif;
-  font-size: 1em;
-}
-pre {
-  white-space: pre-wrap;
-}
-q {
-  quotes: '\201C''\201D''\2018''\2019';
-}
-small {
-  font-size: 80%;
-}
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-img {
-  border: 0;
-}
-svg:not(:root) {
-  overflow: hidden;
-}
-figure {
-  margin: 0;
-}
-fieldset {
-  border: 1px solid #c0c0c0;
-  margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
-}
-legend {
-  border: 0;
-  padding: 0;
-}
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
-  font-size: 100%;
-  margin: 0;
-}
-button,
-input {
-  line-height: normal;
-}
-button,
-select {
-  text-transform: none;
-}
-button,
-html input[type='button'],
-input[type='reset'],
-input[type='submit'] {
-  -webkit-appearance: button;
-  cursor: pointer;
-}
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-input[type='checkbox'],
-input[type='radio'] {
-  box-sizing: border-box;
-  padding: 0;
-}
-input[type='search'] {
-  -webkit-appearance: textfield;
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
-}
-input[type='search']::-webkit-search-cancel-button,
-input[type='search']::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
-textarea {
-  overflow: auto;
-  vertical-align: top;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-}
+.fnc {
 
-::selection {
-  background-color: grey;
-  color: white;
-}
-
-::-moz-selection {
-  background-color: grey;
-  color: white;
-}
-
-@import url('https://use.typekit.net/euz1eqv.css');
-
-html {
-  background: #fff;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-}
-
-body {
-  background-color: #23272a;
-  overflow: hidden;
-}
-
-header {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 115px;
-  z-index: 10;
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/menutexture.png);
-  background-position: center top;
-  background-size: auto 200px;
-  background-repeat: repeat-x;
-
-  .inner {
-    max-width: 1060px;
-    margin: 0 auto;
-    display: flex;
-    height: 70px;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-
-  .logo {
-    display: block;
-    width: 76px;
-    height: 90px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: white;
-    text-align: center;
-
-    img {
-      width: 45px;
-      margin-top: 10px;
-    }
-  }
-
-  nav {
-    display: none;
-
-    a {
-      font-family: 'Arial', serif;
-      font-size: 12px;
-      color: #8c8c8e;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      text-decoration: none;
-      margin: 0 18px;
-
-      &.active,
-      &:hover {
-        color: white;
+    // main variables, basically everything depends on $slidingAT
+    $slidingAT: 1s;
+    $slidingDelay: $slidingAT / 3 * 2;
+    $maskAT: $slidingAT*0.7;
+    $headingAT: $slidingAT * 1.5;
+    $controlAT: $slidingAT/2;
+    $easing: ease-in-out;
+    $blendMode: luminosity;
+  
+    $contentLeft: 40%;
+    $contentTop: 40%;
+    
+    $headingPadding: 30px;
+    $headingFontSize: 100px;
+    
+    $maskTop: 15%;
+    $maskRight: 100% - $contentLeft;
+    $maskHeight: 67vh;
+    $maskWidth: $maskHeight * 0.75;
+  
+    $black: #1F2833;
+  
+    /* you can add color names and their values here
+    and then simply add classes like .m--blend-$colorName to .fnc-slide 
+    to apply specific color for mask blend mode */
+    $bgColors: (
+      dark: lighten(#242424, 20%),
+      green: #42605E,
+      red: lighten(#6A0A0D, 10%),
+      blue: #2D7791
+    );
+  
+    &-slider {
+      overflow: hidden;
+      box-sizing: border-box;
+      position: relative;
+      height: 100vh;
+  
+      *, *:before, *:after {
+        box-sizing: border-box;
+      }
+  
+      &__slides {
+        position: relative;
+        height: 100%;
+        transition: transform $slidingAT $slidingDelay;
+      }
+      
+      // iterate through color map and set colors for specific classes
+      @each $colorTheme, $bgColor in $bgColors {
+        .m--blend-#{$colorTheme} {
+          .fnc-slide__inner {
+            background-color: lighten($bgColor, 20%);
+          }
+  
+          .fnc-slide__mask-inner {
+            background-color: $bgColor;
+          }
+        }
+  
+        .m--navbg-#{$colorTheme} {
+          background-color: $bgColor;
+        }
       }
     }
-
-    @media screen and (min-width: 800px) {
-      display: block;
-    }
-  }
-
-  .burger {
-    display: block;
-    position: relative;
-    top: -6px;
-    padding-left: 30px;
-
-    &:before {
-      content: '';
+  
+    &-slide {
+      overflow: hidden;
       position: absolute;
       left: 0;
       top: 0;
-      width: 30px;
-      height: 2px;
-      background: white;
-      box-shadow: 0 12px 0 0 white, 0 6px 0 0 white;
-    }
-
-    @media screen and (min-width: 800px) {
-      display: none;
-    }
-  }
-
-  .donate-link {
-    width: 72px;
-    text-align: center;
-    position: absolute;
-    right: 10px;
-    top: 27px;
-    font-family: 'Arial', sans-serif;
-    font-size: 12px;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-decoration: none;
-    padding-bottom: 6px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-  }
-}
-
-main {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-}
-
-#slider {
-  width: 100%;
-  max-width: 1200px;
-  height: 100%;
-  margin: 0 auto;
-  position: relative;
-
-  canvas {
-    width: 150%;
-    height: 150%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-  }
-
-  img {
-    width: 100%;
-    max-width: 100%;
-    position: relative;
-    z-index: 0;
-  }
-}
-
-.slider-inner {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  max-width: 1060px;
-  height: 100%;
-  margin: 0 auto;
-  z-index: 5;
-}
-
-#slider-content {
-  padding: 0 10px;
-
-  h2 {
-    font-family: 'acta-display', serif;
-    font-weight: 400;
-    font-size: 30px;
-    letter-spacing: -1px;
-    color: white;
-    line-height: 30px;
-    margin: 20px 0 60px;
-
-    @media screen and (min-width: 800px) {
-      font-size: 110px;
-      line-height: 100px;
-    }
-  }
-
-  span {
-    display: none;
-  }
-
-  .meta {
-    display: inline-block;
-    font-family: 'Arial', sans-serif;
-    font-size: 11px;
-    letter-spacing: 5px;
-    color: #88888a;
-    text-transform: uppercase;
-    position: relative;
-
-    @media screen and (min-width: 800px) {
-      font-size: 13px;
-    }
-
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 5px;
-      right: -55px;
-      width: 45px;
-      height: 2px;
-      background-color: #393d40;
-    }
-  }
-
-  #slide-status {
-    margin-top: 10px;
-    font-family: 'acta-display', serif;
-    font-weight: 400;
-    font-size: 18px;
-    color: white;
-
-    @media screen and (min-width: 800px) {
-      font-size: 34px;
-    }
-  }
-}
-
-#pagination {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 30px;
-  z-index: 6;
-
-  button {
-    display: block;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border: 0;
-    width: 16px;
-    height: 16px;
-    background-color: #ffffff;
-    border-radius: 100%;
-    padding: 0;
-    margin: 30px 0;
-    cursor: pointer;
-    position: relative;
-    opacity: 0.2;
-    transition: opacity 0.2s ease-in-out;
-    outline: none;
-
-    &:hover {
-      opacity: 0.5;
-    }
-
-    &.active {
-      opacity: 1;
-
-      &:before {
-        width: 300%;
-        height: 300%;
-        opacity: 1;
-      }
-    }
-
-    &:before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       width: 100%;
       height: 100%;
-      border-radius: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      opacity: 0;
-      transition: opacity 0.4s ease-in-out, width 0.4s ease-in-out,
-        height 0.4s ease-in-out;
+      transform: translate3d(0,0,0);
+  
+      &.m--before-sliding {
+        z-index: 2 !important;
+        transform: translate3d(100%,0,0);
+      }
+  
+      &.m--active-slide {
+        z-index: 1;
+        transition: transform $slidingAT $slidingDelay $easing;
+        transform: translate3d(0,0,0);
+      }
+  
+      &__inner {
+        position: relative;
+        height: 100%;
+        background-size: cover;
+        background-position: center top;
+        transform: translate3d(0,0,0);
+  
+        .m--global-blending-active &,
+        .m--blend-bg-active & {
+          background-blend-mode: $blendMode;
+        }
+  
+        .m--before-sliding & {
+          transform: translate3d(-100%,0,0);
+        }
+  
+        .m--active-slide & {
+          transition: transform $slidingAT $slidingDelay $easing;
+          transform: translate3d(0,0,0);
+        }
+      }
+  
+      &__mask {
+        $activeDelay: $slidingAT + $slidingDelay/3;
+        $xOffset: 200px;
+        $yOffset: 0;
+        $deg: 10deg;
+  
+        overflow: hidden;
+        z-index: 1;
+        position: absolute;
+        right: $maskRight;
+        top: $maskTop;
+        width: $maskWidth;
+        height: $maskHeight;
+        margin-right: $headingPadding * -3;
+        // This line basically does all magic with masking effect. Very simple and elegant. Webkit only atm.
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0, 6vh 0, 6vh 61vh, 44vh 61vh, 44vh 6vh, 6vh 6vh);
+        transform-origin: 50% 0;
+        transition-timing-function: $easing;
+  
+        .m--before-sliding & {
+          transform: rotate($deg*-1) translate3d($xOffset,0,0);
+          opacity: 0;
+        }
+  
+        .m--active-slide & {
+          transition: transform $maskAT $activeDelay, opacity $maskAT/2 $activeDelay;
+          transform: translate3d(0,0,0);
+          opacity: 1;
+        }
+  
+        .m--previous-slide & {
+          transition: transform $maskAT $slidingDelay/2, opacity $maskAT/2 $maskAT/2 + $slidingDelay/2;
+          transform: rotate($deg) translate3d($xOffset*-1,0,0);
+          opacity: 0;
+        }
+  
+        &-inner {
+          z-index: -1;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 100vw;
+          height: 100vh;
+          margin-left: -50vw;
+          margin-top: -50vh;
+          background-size: cover;
+          background-position: center center;
+          background-blend-mode: $blendMode;
+          transform-origin: 50% (100vh - $maskHeight) / 2;
+          transition-timing-function: $easing;
+  
+          .m--before-sliding & {
+            transform: translateY($yOffset) rotate($deg) translateX($xOffset*-1) translateZ(0);
+          }
+  
+          .m--active-slide & {
+            transition: transform $maskAT $activeDelay;
+            transform: translateX(0);
+          }
+  
+          .m--previous-slide & {
+            transition: transform $maskAT $slidingDelay/2;
+            transform: translateY($yOffset) rotate($deg*-1) translateX($xOffset) translateZ(0);
+          }
+        }
+      }
+  
+      &__content {
+        z-index: 2;
+        position: absolute;
+        left: $contentLeft;
+        top: $contentTop;
+      }
+  
+      &__heading {
+        margin-bottom: 10px;
+        text-transform: uppercase;
+  
+        &-line {
+          overflow: hidden;
+          position: relative;
+          padding-right: 20px;
+          font-size: $headingFontSize;
+          color: #fff;
+          word-spacing: 10px;
+  
+          &:nth-child(2) {
+            padding-left: $headingPadding;
+          }
+  
+          .m--before-sliding & {
+            transform: translateY(100%);
+          }
+  
+          .m--active-slide & {
+            transition: transform $headingAT $slidingDelay*1.5;
+            transform: translateY(0);
+          }
+  
+          .m--previous-slide & {
+            transition: transform $headingAT;
+            transform: translateY(-100%);
+          }
+  
+          span {
+            display: block;
+  
+            .m--before-sliding & {
+              transform: translateY(-100%);
+            }
+  
+            .m--active-slide & {
+              transition: transform $headingAT $slidingDelay*1.5;
+              transform: translateY(0);
+            }
+  
+            .m--previous-slide & {
+              transition: transform $headingAT;
+              transform: translateY(100%);
+            }
+          }
+        }
+      }
+  
+      &__action-btn {
+        $hoverAT: 0.3s;
+        $fontSize: 20px;
+        $vertPadding: 5px;
+        $lineHeight: $fontSize + $vertPadding*2;
+  
+        position: relative;
+        margin-left: 200px;
+        padding: $vertPadding 15px;
+        font-size: $fontSize;
+        line-height: 1;
+        color: transparent;
+        border: none;
+        text-transform: uppercase;
+        background: transparent;
+        cursor: pointer;
+        text-align: center;
+        outline: none;
+  
+        span {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          perspective: 1000px;
+          transform-style: preserve-3d;
+          transition: transform $hoverAT;
+          transform-origin: 50% 0;
+          line-height: $lineHeight;
+          color: #fff;
+  
+          &:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #fff;
+            border-top: none;
+            border-bottom: none;
+          }
+  
+          &:after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            line-height: $lineHeight;
+            background: $black;
+            opacity: 0;
+            transform-origin: 50% 0;
+            transform: translateY(100%) rotateX(-90deg);
+            transition: opacity $hoverAT/2 $hoverAT/2;
+          }
+        }
+  
+        &:hover span {
+          transform: rotateX(90deg);
+  
+          &:after {
+            opacity: 1;
+            transition: opacity $hoverAT/2;
+          }
+        }
+      }
+    }
+  
+    &-nav {
+      z-index: 5;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+  
+      &__bgs {
+        z-index: -1;
+        overflow: hidden;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+  
+      &__bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+  
+        &.m--nav-bg-before {
+          z-index: 2 !important;
+          transform: translateX(100%);
+        }
+  
+        &.m--active-nav-bg {
+          z-index: 1;
+          transition: transform $slidingAT $slidingDelay;
+          transform: translateX(0);
+        }
+      }
+      
+      &__controls {
+        font-size: 0;
+      }
+  
+      &__control {
+        $controlWidth: 100px;
+  
+        overflow: hidden;
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: $controlWidth;
+        height: 50px;
+        font-size: 14px;
+        color: #fff;
+        text-transform: uppercase;
+        background: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        transition: background-color $controlAT;
+  
+        &.m--active-control {
+          background: $black;
+        }
+  
+        &-progress {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 2px;
+          background: #fff;
+          transform-origin: 0 50%;
+          transform: scaleX(0);
+          transition-timing-function: linear !important;
+  
+          .m--with-autosliding .m--active-control & {
+            transform: scaleX(1);
+          }
+  
+          .m--prev-control & {
+            transform: translateX(100%);
+            transition: transform 0.5s !important;
+          }
+  
+          .m--reset-progress & {
+            transform: scaleX(0);
+            transition: transform 0s 0s !important;
+          }
+  
+          .m--autosliding-blocked & {
+            transition: all 0s 0s !important;
+            transform: scaleX(0) !important;
+          }
+        }
+      }
+    }
+  
+  }
+  
+  
+  /* NOT PART OF COMMON SLIDER STYLES */
+  $font: 'Open Sans', Helvetica, Arial, sans-serif;
+  $creditsAT: 0.7s;
+  $creditsWidth: 400px;
+  
+  body {
+    margin: 0;
+  }
+  
+  .demo-cont {
+    overflow: hidden;
+    position: relative;
+    height: 100vh;
+    perspective: 1500px;
+    background: #000;
+    
+    &__credits {
+      box-sizing: border-box;
+      overflow-y: auto;
+      z-index: 1;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: $creditsWidth;
+      height: 100%;
+      padding: 20px 10px 30px;
+      background: #303030;
+      font-family: $font;
+      color: #fff;
+      text-align: center;
+      transition: transform $creditsAT;
+      transform: translate3d(100%,0,0) rotateY(-45deg);
+      will-change: transform;
+      
+      .credits-active & {
+        transition: transform $creditsAT $creditsAT/3;
+        transform: translate3d(0,0,0);
+      }
+      
+      *, *:before, *:after {
+        box-sizing: border-box;
+      }
+      
+      &-close {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+        
+        &:before,
+        &:after {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 50%;
+          width: 100%;
+          height: 2px;
+          margin-top: -1px;
+          background: #fff;
+        }
+        &:before {
+          transform: rotate(45deg);
+        }
+        &:after {
+          transform: rotate(-45deg);
+        }
+      }
+      
+      &-heading {
+        text-transform: uppercase;
+        font-size: 40px;
+        margin-bottom: 20px;
+      }
+      
+      &-img {
+        display: block;
+        width: 60%;
+        margin: 0 auto 30px;
+        border-radius: 10px;
+      }
+      
+      &-name {
+        margin-bottom: 20px;
+        font-size: 30px;
+      }
+      
+      &-link {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 24px;
+        color: #fff;
+      }
+      
+      &-blend {
+        font-size: 30px;
+        margin-bottom: 10px;
+      }
     }
   }
-}
-
-/* Page Loader */
-.loading {
-  &:before {
-    content: '';
-    position: fixed;
-    z-index: 100000;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
+  
+  .example-slider {
+    z-index: 2;
+    transform: translate3d(0,0,0);
+    transition: transform $creditsAT;
+    
+    .credits-active & {
+      transform: translate3d($creditsWidth*-1,0,0) rotateY(10deg) scale(0.9);
+    }
+  
+    .fnc-slide {
+  
+      &-1 {
+        .fnc-slide__inner,
+        .fnc-slide__mask-inner {
+          background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/blackwidow.jpg');
+        }
+      }
+      &-2 {
+        .fnc-slide__inner,
+        .fnc-slide__mask-inner {
+          background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/captainamerica.jpg');
+        }
+      }
+      &-3 {
+        .fnc-slide__inner,
+        .fnc-slide__mask-inner {
+          background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/ironman-alt.jpg');
+        }
+  
+        .fnc-slide__inner:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(255,255,255,0.1);
+        }
+      }
+      &-4 {
+        .fnc-slide__inner,
+        .fnc-slide__mask-inner {
+          background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/thor.jpg');
+        }
+  
+        .fnc-slide__inner:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.2);
+        }
+      }
+    }
+  
+    .fnc-slide__heading,
+    .fnc-slide__action-btn,
+    .fnc-nav__control {
+      font-family: $font;
+    }
   }
-
-  &:after {
-    content: '';
-    position: fixed;
-    z-index: 100000;
-    top: 50%;
-    left: 50%;
-    width: 60px;
-    height: 60px;
-    margin: -30px 0 0 -30px;
-    pointer-events: none;
-    border-radius: 50%;
-    opacity: 0.4;
-    background: white;
-    animation: loaderAnim 0.7s linear infinite alternate forwards;
+  
+  /* COLORFUL SWITCH STYLES 
+     ORIGINAL DEMO - https://codepen.io/suez/pen/WQjwOb */
+  $w: 180px;
+  $_baseW: 280;
+  $h: $w * 120 / $_baseW;
+  $br: $w * 50 / $_baseW;
+  $outerOffset: 5px;
+  $animTime: 0.5s;
+  $dotS: $w * 8 / $_baseW;
+  $dotLeft: $w * 204 / $_baseW;
+  $dotLeftOffset: $w * -125 / $_baseW;
+  $offS: $w * 64 / $_baseW;
+  $onLeft: $w * 162 / $_baseW;
+  $onTop: $w * 35 / $_baseW;
+  $onWidth: $w * 30 / $_baseW;
+  $onHeight: $w * 56 / $_baseW;
+  $cubIn: cubic-bezier(.52,-0.96,.51,1.28);
+  $cubOut: cubic-bezier(.67,-0.16,.47,1.61);
+  
+  @mixin switchOn() {
+    .colorful-switch__checkbox:checked ~ .colorful-switch__label & {
+      @content;
+    }
   }
-}
-
-@keyframes loaderAnim {
-  to {
-    opacity: 1;
-    transform: scale3d(0.5, 0.5, 1);
+  
+  .colorful-switch {
+    position: relative;
+    width: $w;
+    height: $h;
+    margin: 0 auto;
+    border-radius: $br;
+    background: #cfcfcf;
+  
+    &:before {
+      content: "";
+      z-index: -1;
+      position: absolute;
+      left: -$outerOffset;
+      top: -$outerOffset;
+      width: $w + $outerOffset*2;
+      height: $h + $outerOffset*2;
+      border-radius: $br + $outerOffset;
+      background: #314239;
+      transition: background-color 0.3s;
+    }
+  
+    &:hover:before {
+      background: #4C735F;
+    }
+  
+    &__checkbox {
+      z-index: -10;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+    }
+  
+    &__label {
+      z-index: 1;
+      overflow: hidden;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: $br;
+      cursor: pointer;
+    }
+  
+    &__bg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: $w * 3;
+      height: 100%;
+      background: linear-gradient(90deg, #14DCD6 0, #10E7BD $w, #EF9C29 $w*2, #E76339 100%);
+      transition: transform $animTime;
+      transform: translate3d($w*-2,0,0);
+  
+      @include switchOn {
+        transform: translate3d(0,0,0);
+      }
+    }
+  
+    &__dot {
+      position: absolute;
+      left: $dotLeft;
+      top: 50%;
+      width: $dotS;
+      height: $dotS;
+      margin-left: $dotS/-2;
+      margin-top: $dotS/-2;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform $animTime;
+      transform: translate3d(0,0,0);
+  
+      @include switchOn {
+        transform: translate3d($dotLeftOffset,0,0);
+      }
+    }
+  
+    &__on {
+      position: absolute;
+      left: $onLeft;
+      top: $onTop;
+      width: $onWidth;
+      height: $onHeight;
+      transition: transform $animTime;
+      transform: translate3d(0,0,0);
+  
+      @include switchOn {
+        transform: translate3d($dotLeftOffset,0,0);
+      }
+  
+      &__inner {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transition: transform $animTime/2 0s $cubIn;
+        transform-origin: 100% 50%;
+        transform: rotate(45deg) scale(0) translateZ(0);
+  
+        @include switchOn {
+          transition: transform $animTime/2 $animTime/2 $cubOut;
+          transform: rotate(45deg) scale(1) translateZ(0);
+        }
+  
+        &:before,
+        &:after {
+          content: "";
+          position: absolute;
+          border-radius: $dotS/2;
+          background: #fff;
+        }
+        &:before {
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: $dotS+1px;
+        }
+        &:after {
+          right: 0;
+          top: 0;
+          width: $dotS+1px;
+          height: 100%;
+        }
+      }
+    }
+  
+    &__off {
+      position: absolute;
+      left: $dotLeft;
+      top: 50%;
+      width: $offS;
+      height: $offS;
+      margin-left: $offS/-2;
+      margin-top: $offS/-2;
+      transition: transform $animTime;
+      transform: translate3d(0,0,0);
+  
+      @include switchOn {
+        transform: translate3d($dotLeftOffset,0,0);
+      }
+  
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: $dotS;
+        margin-top: $dotS/-2;
+        border-radius: $dotS/2;
+        background: #fff;
+        transition: transform $animTime/2 $animTime/2;
+  
+        @include switchOn {
+          transition-delay: 0s;
+        }
+      }
+      &:before {
+        transform: rotate(45deg) scaleX(1) translateZ(0);
+  
+        @include switchOn {
+          transform: rotate(45deg) scaleX(0) translateZ(0);
+        }
+      }
+      &:after {
+        transition-timing-function: $cubOut;
+        transform: rotate(-45deg) scaleX(1) translateZ(0);
+  
+        @include switchOn {
+          transition-timing-function: ease;
+          transform: rotate(-45deg) scaleX(0) translateZ(0);
+        }
+      }
+    }
   }
-}
